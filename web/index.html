@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CoHabit</title>
+    <link rel="stylesheet" href="styles.css?v=20260819-otp-demo">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-nav">
+        <div class="nav-left">
+          <div class="logo-badge" aria-label="Cohabit home">
+            <div class="logo-mark" aria-hidden="true">
+              <!-- Bitmap logo: replace this file with your PNG at web/images/cohabit-logo.png -->
+              <img class="logo-img" src="images/cohabit-logo.png" srcset="images/cohabit-logo@2x.png 2x" alt="Cohabit logo" />
+            </div>
+            <div class="logo-copy">
+              <span class="logo-text">Cohabit</span>
+              <span class="logo-tagline">Find your kind of home</span>
+            </div>
+          </div>
+          <nav class="nav-menu" aria-label="Main navigation">
+            <a href="#" class="nav-item" data-panel="dashboard">Dashboard</a>
+            <a href="#" class="nav-item active" data-panel="find-roommates">Find Roommates</a>
+            <a href="#" class="nav-item" data-panel="saved">Saved Profiles</a>
+            <a href="#" class="nav-item" data-panel="settings">Settings</a>
+          </nav>
+        </div>
+        <div class="nav-right">
+          <button id="bellBtn" class="icon-btn" aria-haspopup="true" aria-expanded="false" aria-label="Notifications">
+            <span class="bell-icon" aria-hidden="true">🔔</span>
+          </button>
+          <button id="avatarBtn" class="avatar-btn" aria-haspopup="true" aria-expanded="false" aria-label="Account menu">
+            <span aria-hidden="true">👤</span>
+          </button>
+        </div>
+        <!-- Header dropdown panels -->
+        <div id="bellPanel" class="dropdown-panel" role="dialog" aria-hidden="true">
+          <div class="dropdown-inner">
+            <h4 class="dropdown-title">Notifications</h4>
+            <div id="notificationsList" class="dropdown-list">
+              <div class="empty">No new notifications</div>
+            </div>
+          </div>
+        </div>
+        <div id="avatarPanel" class="dropdown-panel" role="menu" aria-hidden="true">
+          <div class="dropdown-inner">
+            <ul class="dropdown-list">
+              <li><a href="#" id="viewProfile">View profile</a></li>
+              <li><a href="#" id="savedProfiles">Saved profiles</a></li>
+              <li><a href="#" id="settingsLink">Settings</a></li>
+              <li class="divider"></li>
+            <li><a href="#" id="loginPhone">Sign in with phone</a></li>
+              <li><a href="#" id="signOut">Sign out</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="watermark-mark" aria-hidden="true">Cohabit</div>
+      <main class="app-layout">
+        <section class="wizard-panel">
+          <div class="wizard-card">
+            <div class="wizard-header">
+              <div class="wizard-heading-wrap">
+                <p class="eyebrow">Your preferences</p>
+                <h1>Tell us how you like to live.</h1>
+              </div>
+            </div>
+
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-labels" aria-hidden="true">
+              <span>Profile progress</span>
+              <span id="progressPercent">0%</span>
+            </div>
+
+            <div class="wizard-stepper" id="wizardStepper" aria-hidden="true"></div>
+
+            <form id="setupForm" class="step-form">
+              <div class="wizard-step active" data-step="1">
+                <p class="section-label">Basic Information</p>
+                <div class="field-grid two">
+                  <label class="field"><span>Name</span><input name="name" placeholder="Your name" autocomplete="name"></label>
+                  <label class="field"><span>Profession</span><input name="profession" placeholder="What you do"></label>
+                </div>
+                <div class="choice-grid small">
+                  <label class="choice-card"><input type="radio" name="gender" value="Female"><span>Female</span></label>
+                  <label class="choice-card"><input type="radio" name="gender" value="Male"><span>Male</span></label>
+                  <label class="choice-card"><input type="radio" name="gender" value="Other"><span>Other</span></label>
+                </div>
+                <p class="section-label">Preferred roommate gender</p>
+                <div class="choice-grid small">
+                  <label class="choice-card"><input type="radio" name="preferred_gender" value="Female"><span>Female</span></label>
+                  <label class="choice-card"><input type="radio" name="preferred_gender" value="Male"><span>Male</span></label>
+                  <label class="choice-card"><input type="radio" name="preferred_gender" value="Any" checked><span>Any</span></label>
+                </div>
+                <div id="genderMismatchNote" class="validation-note" style="display: none;">
+                  ⚠️ Female users can only match with female roommates. Please select "Female".
+                </div>
+                <div id="maleMismatchNote" class="validation-note" style="display: none;">
+                  ⚠️ Male users can only match with male roommates. Please select "Male".
+                </div>
+              </div>
+              <div class="wizard-step" data-step="2">
+                <p class="section-label">Preferred schedule</p>
+                <div class="choice-grid">
+                  <label class="choice-card"><input type="radio" name="work_shift" value="Morning"><span>Morning</span></label>
+                  <label class="choice-card"><input type="radio" name="work_shift" value="Evening"><span>Evening</span></label>
+                  <label class="choice-card"><input type="radio" name="work_shift" value="Night"><span>Night</span></label>
+                </div>
+                <p class="section-label">Social style</p>
+
+                <div class="choice-grid">
+                  <label class="choice-card"><input type="radio" name="personality" value="Introvert"><span>Introvert</span></label>
+                  <label class="choice-card"><input type="radio" name="personality" value="Ambivert"><span>Ambivert</span></label>
+                  <label class="choice-card"><input type="radio" name="personality" value="Extrovert"><span>Extrovert</span></label>
+                </div>
+                <div class="slider-card">
+                  <div class="slider-label">
+                    <span>Social energy</span>
+                    <span id="energyValue">3</span>
+                  </div>
+                  <input name="social_energy_rating" type="range" min="1" max="5" value="3">
+                </div>
+              </div>
+
+              <div class="wizard-step" data-step="3">
+                <p class="section-label">Sleep Preferences</p>
+                <div class="field-grid three">
+                  <label class="field"><span>Bedtime</span><input name="bedtime" placeholder="11 PM"></label>
+                  <label class="field"><span>Wake time</span><input name="wake_time" placeholder="7 AM"></label>
+                  <label class="field"><span>Noise</span><input name="noise_preference" placeholder="Quiet"></label>
+                </div>
+              </div>
+
+              <div class="wizard-step" data-step="4">
+                <p class="section-label">Room Preferences</p>
+                <div class="choice-grid">
+                  <label class="choice-card"><input type="radio" name="room_type_preference" value="Private Room"><span>Private Room</span></label>
+                  <label class="choice-card"><input type="radio" name="room_type_preference" value="Shared Room"><span>Shared Room</span></label>
+                </div>
+                <p class ="section-label">Cleanliness & Privacy</p>
+                <div class="choice-grid">
+                  <label class="choice-card"><input type="radio" name="cleanliness" value="Organised"><span>Organised</span></label>
+                  <label class="choice-card"><input type="radio" name="cleanliness" value="Messy"><span>Messy</span></label>
+                  <label class="choice-card"><input type="radio" name="cleanliness" value="Both"><span>Both</span></label>
+                </div>
+                <p class="section-label">Privacy Importance</p>
+                <div class="choice-grid small">
+                  <label class="choice-card"><input type="radio" name="privacy_importance" value="Low"><span>Low</span></label>
+                  <label class="choice-card"><input type="radio" name="privacy_importance" value="Medium"><span>Medium</span></label>
+                  <label class="choice-card"><input type="radio" name="privacy_importance" value="High"><span>High</span></label>
+                </div>
+              </div>
+
+              <div class="wizard-step" data-step="5">
+                <p class="section-label">Habits</p>
+                <div class="choice-group">
+                  <p class="section-label">Pets</p>
+                  <div class="choice-grid small">
+                    <label class="choice-card"><input type="radio" name="pets" value="No Pets"><span>No Pets</span></label>
+                    <label class="choice-card"><input type="radio" name="pets" value="Has Dog"><span>Has Dog</span></label>
+                    <label class="choice-card"><input type="radio" name="pets" value="Has Cat"><span>Has Cat</span></label>
+                  </div>
+                </div>
+                <div class="choice-group">
+                  <p class="section-label">Smoking &amp; drinking</p>
+                  <div class="choice-grid small">
+                    <label class="choice-card"><input type="radio" name="smoking_drinking" value="No Smoking/Drinking"><span>No Smoking/Drinking</span></label>
+                    <label class="choice-card"><input type="radio" name="smoking_drinking" value="Okay with Roommate's Habits"><span>Okay with Habits</span></label>
+                    <label class="choice-card"><input type="radio" name="smoking_drinking" value="Smoker"><span>Smoker</span></label>
+                  </div>
+                </div>
+                <div class="choice-group">
+                  <p class="section-label">Diet</p>
+                  <div class="choice-grid small">
+                    <label class="choice-card"><input type="radio" name="dietary_restrictions" value="No Restrictions"><span>No Restrictions</span></label>
+                    <label class="choice-card"><input type="radio" name="dietary_restrictions" value="Vegetarian"><span>Vegetarian</span></label>
+                    <label class="choice-card"><input type="radio" name="dietary_restrictions" value="Non-Vegetarian"><span>Non-Vegetarian</span></label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wizard-step" data-step="6">
+                <p class="section-label">Short Bio</p>
+                <label class="field"><span>Tell us about your lifestyle</span><textarea name="bio" rows="4" placeholder="Share your routine, values, and roommate expectations"></textarea></label>
+              </div>
+            </form>
+
+            <div class="wizard-controls">
+              <button id="prevStep" type="button" class="secondary">Back</button>
+              <button id="nextStep" type="button">Continue</button>
+            </div>
+          </div>
+        </section>  
+
+        <section class="content-panel hidden" id="contentPanel">
+          <div class="hero-panel hidden" id="heroPanel">
+            <div class="hero-copy">
+              <p class="eyebrow">AI-powered roommate matching</p>
+              <h2>Your premium profile is ready.</h2>
+              <p class="hero-text">Review your matchmaking stats and continue to explore tailored roommate recommendations.</p>
+            </div>
+            <div class="hero-stats">
+              <div class="stat-card"><span>Matches Found</span><strong id="heroMatchesFound">0</strong></div>
+              <div class="stat-card"><span>Liked</span><strong id="heroLikedCount">0</strong></div>
+              <div class="stat-card"><span>Saved</span><strong id="heroSavedCount">0</strong></div>
+              <div class="stat-card"><span>Average Compatibility</span><strong id="heroAverageCompatibility">0%</strong></div>
+            </div>
+          </div>
+
+          <div id="aiScreen" class="ai-screen hidden">
+            <div class="ai-panel">
+              <div class="ai-icon">🤖</div>
+              <h3>AI Compatibility Engine</h3>
+              <p>Analyzing personality, lifestyle, sleep habits, privacy, and roommate chemistry.</p>
+              <ul class="ai-checklist">
+                <li>Personality Analysis</li>
+                <li>Lifestyle Matching</li>
+                <li>Sleep Schedule Comparison</li>
+                <li>Privacy Compatibility</li>
+                <li>Habit Analysis</li>
+              </ul>
+              <div class="loading-bar">
+                <div class="loading-fill" id="aiProgress"></div>
+              </div>
+              <p class="loading-label">Generating Recommendations...</p>
+            </div>
+          </div>
+
+          <div id="resultsPanel" class="results-panel hidden">
+            <div class="results-top">
+              <div>
+                <p class="eyebrow">Recommendations</p>
+                <h2 id="matchesTitle">Roommates matched to your profile</h2>
+              </div>
+              <span id="matchCount" class="count-pill">0 shown</span>
+            </div>
+
+            <section id="profileCard" class="summary-card"></section>
+
+            <div id="matchesGrid" class="recommendation-grid"></div>
+
+            <div class="bottom-panels">
+              <section class="interaction-panel">
+                <div class="interaction-panel-head">
+                  <h3>Liked Profiles</h3>
+                  <span id="likedCount" class="count-pill">0</span>
+                </div>
+                <div id="likedGrid" class="bottom-grid"></div>
+              </section>
+              <section class="interaction-panel">
+                <div class="interaction-panel-head">
+                  <h3>Saved Profiles</h3>
+                  <span id="savedCount" class="count-pill">0</span>
+                </div>
+                <div id="savedGrid" class="bottom-grid"></div>
+              </section>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Phone OTP modal -->
+    <div id="phoneLoginModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop"></div>
+      <div class="modal-body" role="dialog" aria-modal="true" aria-labelledby="phoneLoginTitle">
+        <h3 id="phoneLoginTitle">Sign in with phone</h3>
+        <div id="phoneStep">
+          <label>Phone number
+            <input id="phoneNumber" type="tel" placeholder="e.g. +91 98765 43210" />
+          </label>
+          <div style="display:flex; gap:8px; margin-top:10px;">
+            <button id="sendOtpBtn" class="primary-btn">Send OTP</button>
+            <button id="cancelOtpBtn" class="secondary">Cancel</button>
+          </div>
+        </div>
+        <div id="otpStep" style="display:none; margin-top:12px;">
+          <label>Enter OTP
+            <input id="otpInput" type="text" placeholder="6-digit code" maxlength="6" />
+          </label>
+          <div id="demoOtp" class="demo-otp" style="display:none;">
+            Demo OTP: <strong id="demoOtpCode">000000</strong>
+          </div>
+          <div style="display:flex; gap:8px; margin-top:10px;">
+            <button id="verifyOtpBtn" class="primary-btn">Verify OTP</button>
+            <button id="resendOtpBtn" class="secondary">Resend</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js?v=20260819-otp-demo"></script>
+  </body>
+</html>

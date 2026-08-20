@@ -624,9 +624,7 @@ screenshots/
 Example Markdown:
 
 ```markdown
-<img width="942" height="408" alt="image" src="https://github.com/user-attachments/assets/4cd52175-8529-4ec1-bc2e-8f638b543470" />
-<img width="946" height="416" alt="{BA9C89B6-62C7-4178-BAE1-9057931EB0D8}" src="https://github.com/user-attachments/assets/b68f58e1-9899-4a5a-ad23-777f376f7110" />
-<img width="939" height="395" alt="{A3216E9C-4B34-4FFC-B9A9-8FDBA1436A49}" src="https://github.com/user-attachments/assets/6cce0d93-4e85-4dde-9091-f04ed02aeaf1" />
+
 
 
 ```

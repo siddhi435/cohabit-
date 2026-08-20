@@ -606,31 +606,6 @@ This project provided hands-on experience in:
 * Modular application architecture
 
 ---
-
-# 📸 Screenshots
-
-Add application screenshots here:
-
-```text
-screenshots/
-├── landing-page.png
-├── login.png
-├── profile.png
-├── preferences.png
-├── recommendations.png
-└── dashboard.png
-```
-
-Example Markdown:
-
-```markdown
-
-
-
-```
-
----
-
 # 🚧 Project Status
 
 **Status:** Active Development 🚀

@@ -1,4 +1,3 @@
-sentence-transformers
 scikit-learn
 numpy
 pydantic
@@ -7,3 +6,4 @@ python-dotenv
 fastapi
 uvicorn[standard]
 pandas
+streamlit

@@ -50,3 +50,10 @@ The repository includes a `render.yaml` Blueprint. Push the project to GitHub, t
 After the first deploy, copy the `https://<your-service>.onrender.com` URL from the Render dashboard. To enable OAuth, add the GitHub and Google client ID and secret values as Render environment variables. Set each provider's callback URL to `https://<your-service>.onrender.com/auth/github` or `https://<your-service>.onrender.com/auth/google`, and use `https://<your-service>.onrender.com` as the Google JavaScript origin.
 
 Render's local filesystem is not durable across service restarts or redeploys. The file-backed sessions and user data are suitable for a demo, but should be moved to persistent database or storage for production.
+
+
+## Deploying the Streamlit app
+
+The repository includes `streamlit_app.py` as a Streamlit Community Cloud entry point. Go to https://share.streamlit.io/, create a new app, select this repository and the `main` branch, and set the main file path to `streamlit_app.py`. Streamlit installs the dependencies from `requirements.txt`. When deployment completes, use the `streamlit.app` URL shown in the app dashboard.
+
+This Streamlit version provides the roommate profile form and recommendations. It does not include the FastAPI OAuth or WebSocket features.

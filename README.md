@@ -638,3 +638,5 @@ Computer Science & Engineering — Artificial Intelligence & Machine Learning
 If you find this project interesting, consider giving the repository a ⭐ on GitHub.
 
 **CoHabit — Find a roommate who fits your lifestyle, not just your location.**
+http://127.0.0.1:8000/
+

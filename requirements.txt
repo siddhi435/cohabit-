@@ -4,3 +4,6 @@ numpy
 pydantic
 authlib
 python-dotenv
+fastapi
+uvicorn[standard]
+pandas

@@ -13,11 +13,13 @@ Create a `.env` file in the project root with the following values:
 
 Example `.env`:
 
+```env
 GITHUB_CLIENT_ID=your_github_client_id
 GITHUB_CLIENT_SECRET=your_github_client_secret
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 SECRET_KEY=replace_with_a_random_secret
+```
 
 ## GitHub App registration
 1. Go to https://github.com/settings/developers -> OAuth Apps -> New OAuth App.
@@ -41,4 +43,10 @@ SECRET_KEY=replace_with_a_random_secret
 - Use the header -> "Sign in with GitHub" or "Sign in with Google" links to begin OAuth flows.
 - To sign out, the frontend calls `POST /api/logout`, which removes the persistent session and clears the cookie session.
 
-If you want, I can add a small script to create a `.env` template or help register the apps interactively.
+## Deploying to Render
+
+The repository includes a `render.yaml` Blueprint. Push the project to GitHub, then in Render choose **New -> Blueprint**, connect the repository, and deploy the `cohabit` web service. The Blueprint installs `requirements.txt`, starts Uvicorn on Render's assigned port, and generates a `SECRET_KEY`.
+
+After the first deploy, copy the `https://<your-service>.onrender.com` URL from the Render dashboard. To enable OAuth, add the GitHub and Google client ID and secret values as Render environment variables. Set each provider's callback URL to `https://<your-service>.onrender.com/auth/github` or `https://<your-service>.onrender.com/auth/google`, and use `https://<your-service>.onrender.com` as the Google JavaScript origin.
+
+Render's local filesystem is not durable across service restarts or redeploys. The file-backed sessions and user data are suitable for a demo, but should be moved to persistent database or storage for production.

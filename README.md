@@ -49,8 +49,6 @@ The collected information is processed by the recommendation system to identify 
 ```text
 User Registration
        ↓
-OTP Authentication
-       ↓
 Create Profile
        ↓
 Lifestyle & Preference Form
@@ -67,20 +65,6 @@ Like / Save / Interact
 ---
 
 # ✨ Key Features
-
-## 🔐 OTP-Based Authentication
-
-Users can authenticate through an OTP-based login flow.
-
-Features include:
-
-* OTP input validation
-* Frontend authentication flow
-* Backend-ready verification architecture
-* Session handling
-* Authentication state management
-
----
 
 ## 👤 Multi-Step Profile Creation
 
